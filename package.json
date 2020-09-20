@@ -1,0 +1,8 @@
+{
+  "name": "net.iriesoft.samples",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/tno2007/net.iriesoft.samples.git",
+  "author": "Lyall <vanderlindel@gmail.com>",
+  "license": "MIT"
+}
