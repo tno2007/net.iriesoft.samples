@@ -1,5 +1,11 @@
 # net.iriesoft.samples
 
+## ABC
+
+- ngVue thing sf template etc
+- service-worker simple cache and file-list tutorial
+- jenkins deploy from tfs?
+
 ## Learning with node
 
     Error: Cannot find module 'readline-sync'

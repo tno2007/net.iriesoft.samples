@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FileReader</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="file" name="file-to-upload" id="file-to-upload" />
+      <div id="fileInfo"></div>
+      <button id="upload-button">Upload</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.js"></script>
+    <script>
+      const allowedUploadMimeTypes = ["application/x-zip-compressed"];
+      const allowedExtensions = [".zip"];
+
+      $(document).ready(function () {
+        console.log("jquery ready!");
+
+        // globals
+        let file;
+        let extension = "";
+        let fileTypeValid = false;
+
+        let $fileInfo = $("fileInfo");
+
+        $(document).on("change", "#file-to-upload", (ev) => {
+          file = ev.target.files[0]; // or element.files[0];
+
+          //let lastModified = file.lastModified;
+          let lastModifiedDate = file.lastModifiedDate;
+          let name = file.name;
+          let size = file.size;
+          let type = file.type;
+          extension = "." + name.split(".").pop();
+
+          console.log("extension", extension);
+
+          let fileTypeValid = allowedExtensions.indexOf(extension) !== -1;
+          if (fileTypeValid === false) {
+            alert("Only zip files are allowed!");
+            return;
+          }
+
+          console.log("next()");
+
+          // ...
+          //
+        });
+
+        $("#upload-button").on("click", function () {
+          // validate type of file
+          let fileTypeValid = allowedExtensions.indexOf(extension) !== -1;
+          if (fileTypeValid === false) {
+            alert("Error: Only zip files are allowed!");
+            return;
+          }
+
+          let formData = new FormData();
+
+          var reader = new FileReader();
+          reader.onabort = () => {
+            console.log("reader.onabort fired!");
+          };
+          reader.onerror = () => {
+            console.log("reader.onerror fired!");
+          };
+          reader.onloadend = () => {
+            console.log("reader.onloadend fired!");
+          };
+          reader.onloadstart = () => {
+            console.log("reader.onloadstart fired!");
+          };
+          reader.onprogress = () => {
+            console.log("reader.onprogress fired!");
+          };
+          reader.onload = function () {
+            formData.append("section", "general");
+            formData.append("theFile", file);
+
+            console.log("reader.onload fired!");
+            //var $data = { title: "Sample Photo Title", file: reader.result };
+            $.ajax({
+              type: "POST",
+              //url: "http://localhost:3000/upload-with-filereader",
+              url: "http://localhost:3000/multer",
+              data: formData,
+              cache: false,
+              processData: false,
+              contentType: false,
+              success: function (response) {},
+              error: function (response) {},
+            });
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+    </script>
+  </body>
+</html>
