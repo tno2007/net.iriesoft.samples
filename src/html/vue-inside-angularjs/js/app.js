@@ -8,10 +8,14 @@ const appComponent = Vue.component("appComponent", {
     age: Number,
   },
   data() {
-    return {};
+    return {
+      localAge: 7,
+    };
   },
   template: "#x-parent-template",
-  mounted() {},
+  mounted() {
+    console.log("firstName", this.firstName);
+  },
   methods: {
     adjust() {
       this.data.total += 111;
@@ -21,6 +25,9 @@ const appComponent = Vue.component("appComponent", {
     },
     updateAge() {
       this.$emit("update-age", Math.random());
+    },
+    updateTotal() {
+      this.$emit("update-total", Math.random());
     },
   },
 });
@@ -40,7 +47,7 @@ app.service("myService", function () {
     return this.total;
   };
 });
-
+/*
 app.controller("SimpleController", function ($scope, myService) {
   //$scope.name = "Lyall";
   //$scope.serviceMsg = myService.setMessage("Hello, I'm From Service");
@@ -56,11 +63,6 @@ app.controller("SimpleController", function ($scope, myService) {
   };
 
   this.vueData = $scope.ngData;
-  /*
-  this.vueData = {
-    age: this._a,
-  };
-  */
 
   this.updateFirstName = (firstName) => {
     this.vueData.data.firstName = firstName;
@@ -71,6 +73,60 @@ app.controller("SimpleController", function ($scope, myService) {
     //this._a = age;
     $scope.ngData.data.age = age;
     this.vueData.age = age;
+  };
+});
+*/
+app.controller("PlainController", function ($scope, myService) {
+  //$scope.name = "Lyall";
+  //$scope.serviceMsg = myService.setMessage("Hello, I'm From Service");
+  //$scope.total = myService.sum(100, 100);
+
+  var vm = this;
+
+  this._a = 11;
+  $scope.ngData = {
+    data: {
+      firstName: "Lyall",
+      lastName: "van der Linde",
+      total: myService.sum(Math.floor(Math.random() * 10 + 1), 100),
+      age: this._a,
+    },
+  };
+
+  console.log(this);
+
+  this.vueData = $scope.ngData;
+  /*
+  this.vueData = {
+    age: this._a,
+  };
+  */
+
+  this.person = {
+    firstName: "The",
+    lastName: "World",
+  };
+
+  this.updateFirstName = (firstName) => {
+    this.vueData.data.firstName = firstName;
+  };
+
+  this.updateAge = (age) => {
+    console.log("age...", age);
+    //this._a = age;
+    $scope.ngData.data.age = age;
+    //this.vueData.age = age;
+  };
+
+  $scope.updateTotal = (t) => {
+    console.log("t", t);
+    //this.vueData.data.firstName = firstName;
+  };
+
+  this.updateTotal = (t) => {
+    console.log("t", t);
+    $scope.ngData.data.total = t;
+    this.vueData.data.total = t;
   };
 });
 

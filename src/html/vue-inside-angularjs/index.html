@@ -41,16 +41,20 @@
         <div>
           <pre>{{data}}</pre>
           <div>{{age}}</div>
+          <pre>{{localAge}}</pre>
           <button @click="adjust">Adjust</button>
           <button @click="updateFirstName">Update first name</button>
           <button @click="updateAge">Update age</button>
+          <button @click="updateTotal">Update total</button>
           <!--
           <child-component></child-component>
           -->
         </div>
       </script>
 
-      <div ng-controller="SimpleController as ctrl">
+      <!--
+      
+      <div xng-controller="SimpleController as ctrl">
         <div id="app">
           <div class="alert alert-primary">
             <p>$scope.ngData is: <strong>{{ngData}}</strong></p>
@@ -59,10 +63,29 @@
           <div class="alert alert-warning">
             <vue-component
               name="appComponent"
-              v-props="ctrl.vueData"
+              v-props="vueData"
               watch-depth="value"
-              v-on-new-first-name="ctrl.updateFirstName"
-              v-on-update-age="ctrl.updateAge"
+              v-on-new-first-name="updateFirstName"
+              v-on-update-age="updateAge"
+            />
+          </div>
+        </div>
+      </div>
+      -->
+
+      <div ng-controller="PlainController as p">
+        <div id="app">
+          <div class="alert alert-primary">
+            <p>$scope.ngData is: <strong>{{ngData}}</strong></p>
+            <pre>{{ngData | json}}</pre>
+          </div>
+          <div class="alert alert-warning">
+            <vue-component
+              name="appComponent"
+              v-props="vueData"
+              watch-depth="value"
+              v-on-update-total="updateTotal"
+              v-on-new-first-name="p.updateFirstName"
             />
           </div>
         </div>

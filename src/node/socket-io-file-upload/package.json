@@ -1,0 +1,14 @@
+{
+  "name": "socket-io-file-upload",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.5.2",
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0",
+    "socket.io-file": "^2.0.31",
+    "socket.io-file-client": "^2.0.2",
+    "socketio-file-upload": "^0.7.2"
+  }
+}

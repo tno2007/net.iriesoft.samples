@@ -72,6 +72,18 @@ app.post("/multer", cpUpload, function (req, res, next) {
   // req.body will contain the text fields, if there were any
 });
 
+app.post("/formidable", cpUpload, function (req, res, next) {
+  var form = new formidable.IncomingForm(); //Receive form
+
+  form.parse(req, function (err, fields, files) {
+    if (err) {
+      next(err);
+      return;
+    }
+    res.json({ fields, files });
+  });
+});
+
 app.post(
   "/upload-with-filereader",
   /*upload.single("theFile"),*/ function (req, res, next) {
